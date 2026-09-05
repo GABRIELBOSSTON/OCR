@@ -1,0 +1,40 @@
+# ==============================================================================
+# .gitignore - Internal OCR Document Analyzer
+# ==============================================================================
+
+# Backend Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+backend/.venv/
+.venv/
+venv/
+*.sqlite
+*.sqlite3
+*.db
+
+# Frontend Node.js
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+.DS_Store
+Thumbs.db
+
+# Storage (Kerahasiaan Dokumen Akuntansi Internal)
+# Dokumen foto asli dan hasil prapemrosesan tidak boleh ter-commit ke Git
+storage/uploads/*
+!storage/uploads/.gitkeep
+storage/preprocessed/*
+!storage/preprocessed/.gitkeep
+
+# Test Data (Contoh dokumen faktur uji coba)
+test_data/*
+!test_data/.gitkeep
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+*.swo
