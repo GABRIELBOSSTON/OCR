@@ -1,0 +1,167 @@
+Project: Internal OCR Document Analyzer — Text Overlay System
+
+Halo teman-teman, saya sedang mengembangkan sebuah project internal yang fokus pada otomatisasi proses pembacaan dokumen hardcopy menggunakan OCR lokal.
+
+Latar belakang project ini berasal dari kebutuhan pekerjaan akuntansi/audit, di mana banyak proses input data masih dilakukan secara manual dari dokumen fisik (hardcopy) ke Excel. Proses tersebut memakan waktu, berulang, dan memiliki risiko human error terutama pada angka finansial seperti nominal, nomor dokumen, tanggal, dan data transaksi.
+
+Selain itu, karena dokumen yang diproses merupakan data perusahaan yang bersifat rahasia, penggunaan layanan AI eksternal seperti upload dokumen ke ChatGPT, Google Vision API, atau cloud OCR menjadi kurang ideal dari sisi keamanan data.
+
+Solusi yang ingin dibuat adalah sebuah aplikasi web internal berbasis lokal yang dapat membaca foto dokumen hardcopy menggunakan OCR engine lokal, kemudian menampilkan hasil pembacaan teks dan angka tersebut sebagai text overlay layer di atas gambar dokumen asli.
+
+Konsep sederhananya:
+
+Foto dokumen hardcopy
+↓
+Sistem membaca seluruh teks dan angka
+↓
+OCR menghasilkan teks + posisi koordinat tulisan
+↓
+Sistem menampilkan teks hasil analisa di atas posisi tulisan asli
+↓
+User dapat klik teks tersebut untuk copy/edit/verifikasi
+
+Jadi dokumen asli tidak diubah. Gambar tetap tampil seperti aslinya, tetapi diberi lapisan informasi tambahan berupa teks hasil OCR.
+
+Contohnya:
+
+Tulisan asli pada invoice tetap terlihat.
+Sistem otomatis mendeteksi "Nomor Faktur", "Tanggal", "Total", angka nominal, kode, dan teks lainnya.
+Di atas tulisan tersebut muncul layer teks hasil analisa.
+User tidak perlu mengetik ulang seluruh isi dokumen.
+
+Konsepnya mirip seperti Google Lens atau text layer pada PDF, tetapi dibuat khusus untuk kebutuhan internal audit/accounting dan seluruh proses dilakukan secara lokal.
+
+Target MVP (versi pertama):
+
+Fokus utama bukan membuat sistem AI yang kompleks, tetapi membuktikan bahwa OCR lokal dapat membaca dokumen dan menampilkan overlay dengan akurat.
+
+Fitur MVP:
+
+Upload foto dokumen (JPG/PNG)
+Sistem melakukan preprocessing gambar:
+resize
+peningkatan kualitas gambar
+grayscale
+contrast enhancement
+OCR membaca:
+teks
+angka
+tanggal
+nominal
+kode dokumen
+OCR menghasilkan:
+hasil teks
+confidence score
+koordinat posisi tulisan (bounding box)
+Frontend menampilkan:
+gambar asli dokumen
+text overlay di posisi yang sama
+bounding box interaktif
+klik teks → copy ke clipboard
+zoom tanpa membuat posisi teks bergeser
+
+Teknologi yang digunakan:
+
+Frontend:
+
+React.js + Vite
+
+Backend:
+
+Python FastAPI
+
+OCR Engine:
+
+PaddleOCR (local inference)
+
+Image Processing:
+
+OpenCV
+
+Database:
+
+SQLite (untuk penyimpanan lokal)
+
+Communication:
+
+REST API JSON
+
+Seluruh proses:
+
+localhost/internal server
+tanpa cloud API
+tanpa mengirim data keluar perusahaan
+
+Arsitektur sederhana:
+
+Frontend React
+
+↓
+
+Backend FastAPI
+
+↓
+
+OpenCV preprocessing
+
+↓
+
+PaddleOCR membaca dokumen
+
+↓
+
+OCR Result:
+
+text
+confidence
+bounding box
+
+↓
+
+Frontend Overlay Viewer
+
+↓
+
+User melihat teks hasil analisa di atas dokumen
+
+Tahapan development:
+
+Phase 1:
+Setup project dan environment
+
+Phase 2:
+Test PaddleOCR membaca satu dokumen
+
+Phase 3:
+Membuat API upload dan proses OCR
+
+Phase 4:
+Membuat tampilan overlay teks di atas gambar
+
+Phase 5:
+Pengujian menggunakan dokumen nyata:
+
+invoice
+nota
+faktur
+tabel angka
+foto dokumen dari HP
+
+Phase 6:
+Pengembangan lanjutan:
+
+export Excel otomatis
+deteksi field penting (tanggal, nomor invoice, total)
+pembelajaran format dokumen perusahaan
+AI document understanding
+
+Intinya project ini adalah membuat "Google Lens versi internal untuk auditor/accounting" yang fokus pada keamanan data, akurasi angka, dan kemudahan mengambil informasi dari hardcopy tanpa input manual berulang.
+
+Target akhirnya adalah mengurangi pekerjaan input manual, mengurangi human error, dan mempercepat proses audit/accounting dengan tetap menjaga kerahasiaan data perusahaan.
+
+
+
+
+
+
+nama chat gptnya =Diskusi Pengembangan OCR Internal
